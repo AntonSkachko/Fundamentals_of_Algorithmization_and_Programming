@@ -33,4 +33,5 @@ int main() {
 	}
 
 	cout << "Result: " << count;
+	return 0;
 }
