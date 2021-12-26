@@ -1,61 +1,61 @@
-#include<iostream>
-#include<stdio.h>
-#include<cmath>
-#include<iomanip>
-
+п»ї#include <iostream>
 using namespace std;
-
 int main()
 {
-    setlocale(LC_ALL, "rus");
-    int N, M, i, j;
+	setlocale(LC_ALL, "rus");
+	int n, m;
 
-    int sum_even_rows = 0, sum_odd_rows = 0, sum_even_cols = 0, sum_odd_cols = 0;
+	cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє:"; cin >> m;
+	cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ:"; cin >> n;
+	int** a;
+	a = new int* [n];
+	for (int i = 0; i < n; i++)
+		a[i] = new int[n];
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+		{
+			cout << "a[" << i << "][" << j << "] = ";
+			cin >> a[i][j];
+		}
+	int io = 0, h;
+	for (int f = 0; f < n; f++)
+	{
+		io = f;
+		int max1 = a[f][0], max;
+		for (int s = 0; s < m; s++)
+			if (a[f][s] > max1)
+			{
+				max1 = a[f][s];
+			}
 
-    cout << "Введите количество строк матрицы: ";    cin >> N;
-    cout << "Введите количество столбцов матрицы: ";   cin >> M;
-    int** mass = new int* [N]; 
-    cout << endl;
-    cout << "Заполните матрицу " << N << 'х' << M << endl;
+		for (int i = f; i < n; i++) {
+			int max = a[f][0];
 
-    for (i = 0; i < N; i++)
-    {
-        mass[i] = new int[M]; 
-    }
+			for (int y = 0; y < m; y++)
+			{
+				if (a[i][y] > max)
+				{
+					max = a[i][y];
+				}
+			}
 
-    for (i = 0; i < N; i++)
-    {
-        for (j = 0; j < M; j++)
-        {
-            cout << "Введите число: ";
-            cin >> mass[i][j];
-        }
-    }
+			if (max < max1)
+			{
+				max1 = max;
+				io = i;
 
-    cout << "Полученная матрица: " << endl;
-    for (i = 0; i < N; i++)
-    {
-        for (j = 0; j < M; j++)
-        {
-            if (i % 2 == 0)
-                sum_even_rows += mass[i][j];
-            else
-                sum_odd_rows += mass[i][j];
+			}
 
-            if (j % 2 == 0)
-                sum_even_cols += mass[i][j];
-            else
-                sum_odd_cols += mass[i][j];
+		}
+		swap(a[f], a[io]);
+	}
+	cout << "\nРќРѕРІС‹Р№ РјР°СЃСЃРёРІ:\n";
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < m; j++)
+			cout << a[i][j] << " ";
+		cout << "\n";
+	}
 
-            cout << setw(6) << mass[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-    cout << "Сумма элементов в нечетных строках   :  " << sum_even_rows << endl;
-
-    cout << "Сумма элементов в четных столбцах:  " << sum_odd_cols << endl;
-
-    return 0;
-
+	return 0;
 }
