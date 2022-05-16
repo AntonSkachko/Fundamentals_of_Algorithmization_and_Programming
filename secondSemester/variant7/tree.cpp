@@ -16,10 +16,10 @@ void add(Tree*& branch,Tree* parent, int info);
 void transplant(Tree*& branch, Tree* replaceableBranch, Tree* branchSubstitute);
 void treeDelete(Tree*& branch, Tree* deletedItem);
 
-// мне лень !!!!
+// Г¬Г­ГҐ Г«ГҐГ­Гј !!!!
 void balancedTree();
 
-
+// С‚СѓС‚ РїР»РѕС…Рѕ СЂР°Р±РѕС‚Р°РµС‚ СѓРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
 void inorderTreeWalk(Tree* branch);
 void preorderTreeWalk(Tree* branch);
 void postorderTreeWalk(Tree* branch);
@@ -160,7 +160,7 @@ void add(Tree*& branch, Tree* value) {
 
 }
 */
-// возвращает информацию есть ли у нас этот элемент
+// ГўГ®Г§ГўГ°Г Г№Г ГҐГІ ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ ГҐГ±ГІГј Г«ГЁ Гі Г­Г Г± ГЅГІГ®ГІ ГЅГ«ГҐГ¬ГҐГ­ГІ
 void seachElement(Tree* branch, int value) {
 	if (branch->info == value) {
 		cout << "We have that element " << value;
@@ -178,7 +178,7 @@ void seachElement(Tree* branch, int value) {
 	}
 }
 
-// возвращает указатель на элемент который мы ищем
+// ГўГ®Г§ГўГ°Г Г№Г ГҐГІ ГіГЄГ Г§Г ГІГҐГ«Гј Г­Г  ГЅГ«ГҐГ¬ГҐГ­ГІ ГЄГ®ГІГ®Г°Г»Г© Г¬Г» ГЁГ№ГҐГ¬
 Tree* treeSearch(Tree* branch, int value) {
 	if (branch == NULL || value == branch->info) {
 		return branch;
@@ -192,7 +192,7 @@ Tree* treeSearch(Tree* branch, int value) {
 }
 
 
-// центрированный обход дерева, стоит по умолчанию
+// Г¶ГҐГ­ГІГ°ГЁГ°Г®ГўГ Г­Г­Г»Г© Г®ГЎГµГ®Г¤ Г¤ГҐГ°ГҐГўГ , Г±ГІГ®ГЁГІ ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ
 void inorderTreeWalk(Tree* branch){
 	if (branch != NULL) {
 		inorderTreeWalk(branch->left);
@@ -202,7 +202,7 @@ void inorderTreeWalk(Tree* branch){
 }
 
 
-// обход в прямом порядке
+// Г®ГЎГµГ®Г¤ Гў ГЇГ°ГїГ¬Г®Г¬ ГЇГ®Г°ГїГ¤ГЄГҐ
 void preorderTreeWalk(Tree* branch) {
 	if (branch != NULL) {
 		cout << branch->info << " ";
@@ -211,7 +211,7 @@ void preorderTreeWalk(Tree* branch) {
 	}
 }
 
-// обход в обратном порядке
+// Г®ГЎГµГ®Г¤ Гў Г®ГЎГ°Г ГІГ­Г®Г¬ ГЇГ®Г°ГїГ¤ГЄГҐ
 void postorderTreeWalk(Tree* branch) {
 	if (branch != NULL) {
 		cout << branch->info << " ";
@@ -235,7 +235,7 @@ Tree* treeMaximum(Tree* branch) {
 	return branch;
 }
 
-// функция которая меняет местами деревья
+// ГґГіГ­ГЄГ¶ГЁГї ГЄГ®ГІГ®Г°Г Гї Г¬ГҐГ­ГїГҐГІ Г¬ГҐГ±ГІГ Г¬ГЁ Г¤ГҐГ°ГҐГўГјГї
 void transplant(Tree*& branch, Tree* replaceableBranch, Tree* branchSubstitute) {
 	
 	if (replaceableBranch->parent == NULL) {
