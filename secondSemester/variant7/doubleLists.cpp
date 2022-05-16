@@ -20,7 +20,7 @@ int main() {
 	srand(time(0));
 	int choice, size, info, maxValue = -299;
 	DoublyList* temp = new DoublyList;
-	DoublyList* begin, * end;
+	DoublyList* begin, * end, *yMaxValue;
 	temp->info = rand() % 60;
 	temp->next = temp->previous = NULL;
 	begin = end = temp;
@@ -30,7 +30,6 @@ int main() {
 			<< "\n 3 - adding to the end. \n 4 - delete doubly list.\n 5 - view the doubly list from the beginning."
 			<< "\n 6 - view the doubly list for the end.\n 7 - indivisual task.\n 8 - exit.\n Your number is: ";
 		cin >> choice;
-
 		switch (choice) {
 			case 1:
 				cout << "\n Enter size of doubly list: ";
@@ -39,6 +38,7 @@ int main() {
 					info = rand() % 60;
 					if (maxValue < info) {
 						maxValue = info;
+						cout << maxValue << " ";
 					}
 					addingToBeginning(&begin, info);
 				}
@@ -46,11 +46,17 @@ int main() {
 			
 			case 2:
 				cout << "\n Enter variable: "; cin >> info;
+				if (maxValue < info) {
+					maxValue = info;
+				}
 				addingToBeginning(&begin, info);
 				break;
 			
 			case 3:
 				cout << "\n Enter variable: "; cin >> info;
+				if (maxValue < info) {
+					maxValue = info;
+				}
 				addingToEnd(&end, info);
 				break;
 
@@ -71,7 +77,6 @@ int main() {
 			case 7:
 				individualTask(begin, maxValue);
 				break;
-			
 			case 8:
 				if (begin->next != NULL) {
 					delAll(begin, end);
@@ -116,7 +121,7 @@ void delAll(DoublyList* begin, DoublyList* end) {
 
 void viewFromBegin(DoublyList* begin) {
 	DoublyList* temp = begin;
-	while (temp->next != NULL) {
+	while (temp != NULL) {
 		cout << temp->info << " ";
 		temp = temp->next;
 	}
@@ -124,7 +129,7 @@ void viewFromBegin(DoublyList* begin) {
 
 void viewFromEnd(DoublyList* end) {
 	DoublyList* temp = end;
-	while (temp->previous != NULL) {
+	while (temp != NULL) {
 		cout << temp->info << " ";
 		temp = temp->previous;
 	}
@@ -132,11 +137,13 @@ void viewFromEnd(DoublyList* end) {
 
 void individualTask(DoublyList* begin, int maxValue) {
 	DoublyList* temp = new DoublyList;
+	DoublyList* buf = temp;
+
 	temp->next = temp->previous = NULL;
 	while (begin->info != maxValue) {
-		addingToBeginning(&temp, begin->info);
+		addingToEnd(&temp, begin->info);
 		begin = begin->next;
 	}
 	cout << "Your individual task: ";
-	viewFromBegin(temp);
+	viewFromBegin(buf -> next);
 }
