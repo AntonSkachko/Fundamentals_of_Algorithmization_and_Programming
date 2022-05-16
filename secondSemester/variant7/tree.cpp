@@ -2,6 +2,7 @@
 #include <random>
 #include <ctime>
 #include <string>
+#include <iomanip>
 using namespace std;
 
 struct Tree {
@@ -18,7 +19,9 @@ void treeDelete(Tree*& branch, Tree* deletedItem);
 
 // мне лень !!!!
 void balancedTree();
-
+void DeleteNodeFromBinary(Tree* node, int value);
+Tree* Leftmost(Tree* node);
+Tree* Rightmost(Tree* node);
 
 void inorderTreeWalk(Tree* branch);
 void preorderTreeWalk(Tree* branch);
@@ -29,7 +32,7 @@ Tree* treeMaximum(Tree* branch);
 
 void seachElement(Tree* branch, int value);
 Tree* treeSearch(Tree* branch, int value);
-void count();
+int findHeight(Tree* branch);
 
 int main() {
 	srand(time(0));
@@ -47,8 +50,8 @@ int main() {
 
 	while (true) {
 		int choice;
-		cout << " 1 - individual task;\n 2 - add branch;\n 3 - search element;\n"
-			<< " 4 - view element;\n 5 - exit;\n 6 - delete element;\n"
+		cout << " \n 1 - individual task;\n 2 - add branch;\n 3 - search element;\n"
+			<< " 4 - view element;\n 5 - exit;\n 6 - individual task;\n 7 - delete element \n"
 			<< "Enter your choice: ";
 		cin >> choice;
 
@@ -89,8 +92,12 @@ int main() {
 				system("cls");
 				cout << "Good bye!!";
 				return 0;
-				 
+
 			case 6:
+				cout << "Height of your tree is " << findHeight(branch);
+				break;
+				 
+			case 7:
 				system("cls");
 				
 				cout << " Your Tree: ";
@@ -107,10 +114,8 @@ int main() {
 					break;
 				}
 
-				treeDelete(branch, deletedItem);
+				DeleteNodeFromBinary(branch, item);
 				break;
-
-
 		}
 	}
 
@@ -273,5 +278,96 @@ void treeDelete(Tree*& branch, Tree* deletedItem) {
 	}
 }
 
+// из интернета
+void DeleteNodeFromBinary(Tree* node, int value)
+{
+	if (node == NULL)
+		return;
 
-void treeCount(Tree* branch, int ){}
+	if (value < node->info)
+		return DeleteNodeFromBinary(node->left, value);
+	else if (value > node->info)
+		return DeleteNodeFromBinary(node->right, value);
+	else {
+		if (node->left == NULL && node->right == NULL) {
+			if (node->parent->left == node)
+				node->parent->left = NULL;
+			else
+				node->parent->right = NULL;
+			delete node;
+		}
+		else {
+			Tree* newnode = NULL;
+			if (node->left != NULL) {
+				newnode = Rightmost(node->left);
+			}
+			else
+				newnode = Leftmost(node->right);
+
+			if (node->parent->left == node)
+				node->parent->left = newnode;
+			else
+				node->parent->right = newnode;
+
+			newnode->parent = node->parent;
+			newnode->right = node->right;
+			newnode->left = node->left;
+
+			delete node;
+		}
+	}
+}
+Tree* Leftmost(Tree* node) {
+	if (node == NULL)
+		return NULL;
+	if (node->left != NULL) {
+		return Leftmost(node->left);
+	}
+	return node;
+}
+Tree* Rightmost(Tree* node) {
+	if (node == NULL)
+		return NULL;
+	if (node->right != NULL) {
+		return Rightmost(node->right);
+	}
+	return node;
+}
+
+//
+void makeBalanceTree(Tree** branch, int n, int k, int* a) {
+	if (n == k) {
+		*branch = NULL;
+		return;
+	}
+	else {
+		int m = (n + k) / 2;
+		*branch = new Tree;
+		(*branch)->info = a[m];
+		makeBalanceTree(&(*branch)->left, n, m, a);
+		makeBalanceTree(&(*branch)->right, m + 1, k, a);
+	}
+
+}
+ 
+
+// уберёшь потом d
+int findHeight(Tree* branch){
+	if (branch == NULL) {
+		return 0;
+	}
+	else {
+		int leftSide;
+		int rightSide;
+
+		leftSide = findHeight(branch->left);
+		rightSide = findHeight(branch->right);
+		
+		if (leftSide > rightSide) {
+			return leftSide + 1;
+		}
+		else {
+			return rightSide + 1;
+		}
+	}
+}
